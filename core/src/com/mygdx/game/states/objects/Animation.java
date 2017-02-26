@@ -47,4 +47,7 @@ public class Animation {
     public TextureRegion getFrame(){
         return frames.get(frame);
     }
+    public TextureRegion getFrame(int frm){
+        return frames.get(frm);
+    }
 }

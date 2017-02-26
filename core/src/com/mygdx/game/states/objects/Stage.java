@@ -1,6 +1,7 @@
 package com.mygdx.game.states.objects;
 
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -23,7 +24,9 @@ public class Stage {
     public Stage(Camera camera) {
         background = new Texture("background.png");
         ground = new Texture("tile.png");
+
         groundPosition1 = new Vector2(camera.position.x-50, GROUND_Y_OFFSET);
+
     }
 
     public void draw(SpriteBatch batch, Camera camera){

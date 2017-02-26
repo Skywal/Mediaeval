@@ -1,16 +1,10 @@
 package com.mygdx.game.states.objects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
-import com.mygdx.game.MainGameClass;
-
-import java.awt.Font;
 
 /**
  * Created by Bloom on 16.02.2017.
@@ -21,7 +15,7 @@ public class WhiteKnight {
     /** коефіцієнт швидкості персонажу по горизонталі*/
     private final int SPEEDX = -50;
     /**Сила удару і по суміснусті рахунок гравця*/
-    private static int SCORE;
+    private static int score;
     /**позиція на карті*/
     private Vector2 position;
     /**швидкість персонажу по x*/
@@ -40,7 +34,7 @@ public class WhiteKnight {
         animatedTexture = new Texture("horsemana.png");
         animation = new Animation(new TextureRegion(animatedTexture), 3, 0.2f);
 
-        SCORE = 0;
+        score = 0;
         position = new Vector2();
         velocity = new Vector2(0, 0);
 
@@ -90,10 +84,10 @@ public class WhiteKnight {
     /**обрахунок рахунку*/
     private void scoreCount(){
         if(velocity.x > 0)
-        SCORE += velocity.x;
-        else SCORE -= 100;
-        if(SCORE <= 0)
-            SCORE = 0;
+        score += velocity.x;
+        else score -= 100;
+        if(score <= 0)
+            score = 0;
     }
     /**вивільнення ресурсів*/
     public void dispose(){
@@ -122,7 +116,11 @@ public class WhiteKnight {
     public Rectangle getSpearHitBox() {
         return spearHitBox;
     }
-    public int getSCORE(){
-        return SCORE;
+    public int getScore(){
+        return score;
+    }
+    /**повернення певного кадру анімації*/
+    public TextureRegion getFrame(int frm){
+        return animation.getFrame(frm);
     }
 }

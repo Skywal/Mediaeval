@@ -2,9 +2,9 @@ package com.mygdx.game.states.objects;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.MainGameClass;
 
 /**
@@ -16,7 +16,7 @@ public class RedKnight {
     /** коефіцієнт швидкості персонажу по горизонталі*/
     public static final int SPEEDX = 50;
     /**Сила удару і по суміснусті рахунок гравця*/
-    public static int SCORE;
+    public static int score;
     /**позиція на карті*/
     private Vector2 position;
     /**швидкість персонажу по x*/
@@ -27,9 +27,17 @@ public class RedKnight {
     private Rectangle knightHitBox;
     /** для зіткнень із вершником  кінчик спису*/
     private Rectangle spearHitBox;
+    /**анімація*/
+    private Animation animation;
+    /**текстура з анімацією*/
+    private Texture animatedTexture;
 
     public RedKnight(int x, int y){
-        SCORE = 0;
+
+        animatedTexture = new Texture("antagonista.png");
+        animation = new Animation(new TextureRegion(animatedTexture), 3, 0.2f);
+
+        score = 0;
         velocity = new Vector2(0, 0);
         texture = new Texture("antagonist.png");
         position = new Vector2();
@@ -76,10 +84,10 @@ public class RedKnight {
     /**обрахунок рахунку*/
     private void scoreCount(){
         if(velocity.x > 0)
-            SCORE += velocity.x;
-        else SCORE -= 100;
-        if(SCORE <= 0)
-            SCORE = 0;
+            score += velocity.x;
+        else score -= 100;
+        if(score <= 0)
+            score = 0;
     }
     /**вивільнення ресурсів*/
     public void dispose(){
@@ -101,7 +109,11 @@ public class RedKnight {
     public Rectangle getSpearHitBox() {
         return spearHitBox;
     }
-    public int getSCORE(){
-        return SCORE;
+    public int getScore(){
+        return score;
+    }
+    /**повернення певного кадру анімації*/
+    public TextureRegion getFrame(int frm){
+        return animation.getFrame(frm);
     }
 }

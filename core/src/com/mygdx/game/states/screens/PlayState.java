@@ -1,7 +1,6 @@
 package com.mygdx.game.states.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -23,7 +22,8 @@ public class PlayState extends State {
     /**сцена*/
     private Stage stage;
     /**переможний напис*/
-    private Texture winLogo;
+    //private Texture winLogo;
+    //private WinState winState;
 
     /**гравці*/
     private WhiteKnight whiteKnight;
@@ -42,7 +42,8 @@ public class PlayState extends State {
         whiteKnight = new WhiteKnight(5, 65);
         redKnight = new RedKnight(5000, 65);
 
-        winLogo = new Texture("winlogo.png");
+        //winLogo = new Texture("winlogo.png");
+        //winState = new WinState(gameStateManager, this);
 
         bitmapFont = new BitmapFont();
     }
@@ -81,10 +82,10 @@ public class PlayState extends State {
             redKnight.draw(spriteBatch);
             whiteKnight.draw(spriteBatch);
 
-            if(whiteKnight.spearHit(redKnight.getKnightHitBox()))
-                spriteBatch.draw(winLogo, camera.position.x - winLogo.getWidth()/2, MainGameClass.HEIGHT/2);
+            //if(whiteKnight.spearHit(redKnight.getKnightHitBox()))
+                //spriteBatch.draw(winLogo, camera.position.x - winLogo.getWidth()/2, MainGameClass.HEIGHT/2);
 
-            bitmapFont.draw(spriteBatch, "SCORE WHITE KNIGHT " + whiteKnight.getSCORE(),
+            bitmapFont.draw(spriteBatch, "score WHITE KNIGHT " + whiteKnight.getScore(),
                     camera.position.x - camera.viewportWidth/2 + 10, MainGameClass.HEIGHT -75);
 
             bitmapFont.draw(spriteBatch, "HitBox " + (whiteKnight.getSpearHitBox().x ),
@@ -95,6 +96,11 @@ public class PlayState extends State {
                     camera.position.x - camera.viewportWidth/2 + 10, MainGameClass.HEIGHT -50);
 
         spriteBatch.end();
+
+
+        if(whiteKnight.spearHit(redKnight.getKnightHitBox()))
+            MainGameClass.gameStateManager.push(new WinState(gameStateManager,
+                    redKnight.getFrame(0), whiteKnight.getPosition().y));
     }
     /**для того щоб виставляти камеру на різні позиції із можливістю переміщення */
     public void setCameraPosition(Vector2 position){
@@ -106,5 +112,7 @@ public class PlayState extends State {
         redKnight.dispose();
         bitmapFont.dispose();
         stage.dispose();
+
+        //winState.dispose();
     }
 }
